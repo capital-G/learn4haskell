@@ -348,7 +348,9 @@ from it!
 ghci> :l src/Chapter2.hs
 -}
 subList :: Int -> Int -> [a] -> [a]
-subList a b x = take (b-a+1) (drop a x)
+subList a b x
+  | a<0 || b <0 = []
+  | otherwise = take (b-a+1) (drop a x)
   
 {- |
 =⚔️= Task 4
@@ -862,7 +864,9 @@ list.
 🕯 HINT: Use the 'cycle' function
 -}
 rotate :: Int -> [a] -> [a]
-rotate n xs = take (length xs) $ drop n $ cycle xs
+rotate n xs
+  | n < 0 = []
+  | otherwise = take (length xs) $ drop n $ cycle xs
 
 {- |
 =💣= Task 12*
