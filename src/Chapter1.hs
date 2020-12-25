@@ -492,7 +492,7 @@ Implement a function that returns the last digit of a given number.
 -}
 -- DON'T FORGET TO SPECIFY THE TYPE IN HERE
 lastDigit :: Int -> Int
-lastDigit n = mod n 10
+lastDigit n = mod (abs n) 10
 
 
 {- |
@@ -530,7 +530,7 @@ closestToZero x y = if abs x > abs y then y else x
 Write a function that returns the middle number among three given numbers.
 
 >>> mid 3 1 2
-1
+2
 
 🕯 HINT: When checking multiple conditions, it is more convenient to use the
   language construct called "guards" instead of multiple nested 'if-then-else'
@@ -557,7 +557,12 @@ Casual reminder about adding top-level type signatures for all functions :)
 -}
 
 mid :: Int -> Int -> Int -> Int
-mid _ y _ = y
+mid x y z
+  | x <= y && y <= z = y
+  | z <= y && y <= x = y
+  | y <= x && x <= z = x
+  | z <= x && x <= y = x
+  | otherwise = z 
 
 {- |
 =⚔️= Task 8
@@ -639,8 +644,8 @@ specifying complex expressions.
 sumLast2 :: Int -> Int
 sumLast2 n = a + b
   where
-    a = div (n `mod` 100) 10
-    b = n `mod` 10
+    a = div ((abs n) `mod` 100) 10
+    b = (abs n) `mod` 10
 
 
 {- |
@@ -663,8 +668,8 @@ aren't ready for this boss yet!
 
 firstDigit :: Int -> Int
 firstDigit n
-  | div n 10 == 0 = n
-  | div n 10 > 0 = firstDigit (div n 10)
+  | div (abs n) 10 == 0 = abs n
+  | div (abs n) 10 > 0 = firstDigit (div (abs n) 10)
 
 
 
