@@ -577,7 +577,7 @@ True
 False
 -}
 isVowel :: Char -> Bool
-isVowel c = if c `elem` ['a', 'e', 'i', 'o', 'u'] then True else False
+isVowel c = c `elem` ['a', 'e', 'i', 'o', 'u']
 
 
 {- |
@@ -668,9 +668,9 @@ aren't ready for this boss yet!
 
 firstDigit :: Int -> Int
 firstDigit n
-  | div (abs n) 10 == 0 = abs n
-  | div (abs n) 10 > 0 = firstDigit (div (abs n) 10)
-
+  | div10 n == 0 = abs n
+  | div10 n > 0 = firstDigit (div10 n)
+  where div10 n = div (abs n) 10  
 
 
 {-
