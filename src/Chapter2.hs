@@ -349,8 +349,8 @@ ghci> :l src/Chapter2.hs
 -}
 subList :: Int -> Int -> [a] -> [a]
 subList a b x
-  | a<0 || b <0 = []
-  | otherwise = take (b-a+1) (drop a x)
+  | a < 0 || b < 0 || b < a = []
+  | otherwise = take (b - a + 1) (drop a x)
   
 {- |
 =⚔️= Task 4
@@ -623,7 +623,7 @@ Implement a function that duplicates each element of the list
 -}
 duplicate :: [a] -> [a]
 duplicate [] = []
-duplicate (x:xs) = [x,x] ++ duplicate xs
+duplicate (x:xs) = x : x : duplicate xs
 
 
 {- |
@@ -640,7 +640,7 @@ Write a function that takes elements of a list only in even positions.
 -}
 takeEven :: [a] -> [a]
 takeEven [] = [] 
-takeEven (x:_:xs) = [x] ++ takeEven xs
+takeEven (x:_:xs) = x : takeEven xs
 takeEven (x:_) = [x]
 
 {- |
@@ -748,7 +748,7 @@ value of the element itself
 🕯 HINT: Use combination of 'map' and 'replicate'
 -}
 smartReplicate :: [Int] -> [Int]
-smartReplicate l = concat (map (\x -> replicate x x) l)
+smartReplicate = concatMap (\x -> replicate x x)
 
 {- |
 =⚔️= Task 9
@@ -866,7 +866,8 @@ list.
 rotate :: Int -> [a] -> [a]
 rotate n xs
   | n < 0 = []
-  | otherwise = take (length xs) $ drop n $ cycle xs
+  | otherwise = take (length xs) $ drop (n `mod` length xs) $ cycle xs
+  -- | otherwise = take (length xs) $ drop n $ cycle xs
 
 {- |
 =💣= Task 12*
