@@ -516,7 +516,7 @@ append (Cons e a) l2 = Cons e (append a l2)
 
 instance Applicative List where
   pure :: a -> List a
-  pure _ = Empty
+  pure a = Cons a Empty
 
   (<*>) :: List (a -> b) -> List a -> List b
   Empty <*> _ = Empty
